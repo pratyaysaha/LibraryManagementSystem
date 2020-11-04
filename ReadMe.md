@@ -2,4 +2,4 @@
 
 Any addition of feature should be documented
 
-## test-1 i for testing pupose
+## test-1 is for testing pupose
