@@ -27,7 +27,8 @@ class admin_database
         }
         vector<admin> searchbyAdminID(char element[])
         {
-            cout<<"Key :"<<element<<endl;
+            vector<admin> searchRes;
+            cout<<"Key :"<<element<<endl; 
             admin ad;
             ifstream ifile;
             ifile.open("admin",ios::in);
@@ -35,10 +36,11 @@ class admin_database
             {
                 if(strcmp(ad.get_admin_id(),element)==0)
                 {
-                    
+                    searchRes.push_back(ad);
                 }
             }
             ifile.close();
+            return searchRes;
         }
         bool login(char* uname, char* pass)
         {
