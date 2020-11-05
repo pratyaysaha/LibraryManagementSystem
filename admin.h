@@ -44,4 +44,8 @@ class admin
         {
             return password;
         }
+        char* get_name()
+        {
+            return name;
+        }
 };

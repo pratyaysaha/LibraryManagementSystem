@@ -42,6 +42,25 @@ class admin_database
             ifile.close();
             return searchRes;
         }
+
+        vector<admin> searchbyName(char *Name)
+        {
+            vector<admin> searchRes;
+            cout<<"Key : ";
+            admin ad;
+            ifstream ifile;
+            ifile.open("admin",ios::in);
+            while(ifile.read((char*)&ad,sizeof(ad)))
+            {
+                if(strcmp(ad.get_name(),Name)==0)
+                {
+                    searchRes.push_back(ad);
+                }
+            }
+            ifile.close();
+            return searchRes;
+            
+        }
         bool login(char* uname, char* pass)
         {
             cout<<uname<<" "<<pass<<endl;
