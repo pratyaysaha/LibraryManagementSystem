@@ -29,6 +29,14 @@ class book_database
             return all_data;
         }
 
+        void extract(vector<book> &info)
+        {
+            if(info.size()==0){cout<<"No data"<<endl; return;}
+            for(int i=0;i<info.size();i++)
+            {
+                info[i].display();
+            }
+        }
         vector<book> searchByBookID(int id)
         {
             vector<book> all_data;
@@ -114,6 +122,48 @@ class book_database
             return all_data;
         }
 
+        bool deleteRecord(int bookid)
+        {
+            book b;
+            int found=0;
+            ofstream ofile("temp",ios::out|ios::app);
+            ifstream ifile("book",ios::in);
+            if(!ifile){cout<<"Error"<<endl; return false;}
+            while(ifile.read((char*)&b,sizeof(b)))
+            {
+                if(b.get_bookID()==bookid)
+                {
+                    b.display();
+                    found=1;
+                    cout<<"Do you want to delete ? (y/n) : ";
+                    char choice;
+                    cin>>choice;
+                    if(choice=='n'||choice=='N')
+                    {
+                        ofile.write((char*)&b,sizeof(b));
+                    }
+                }
+                else
+                {
+                    ofile.write((char*)&b,sizeof(b));
+                }
+            }
+            ifile.close();
+            ofile.close();
+
+            remove("book");
+            rename("temp","book");
+            ifile.open("book",ios::in);
+            if(!ifile){cout<<"Database got Corrupted !!"; return false;}
+            ifile.close();
+            if(found==0)
+            {
+                cout<<"Record not Found !! ";
+                return false;
+            }
+            cout<<"Deleted succefully"<<endl;
+            return true;
+        }
 
 
         

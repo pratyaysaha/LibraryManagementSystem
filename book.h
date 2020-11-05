@@ -43,11 +43,11 @@ class book
         char* get_genre(){return genre;}
         char* get_author(){return author;}
 
-        int set_quantity(int quan){quantity=quan;}
-        char* set_name(char *nam){strcpy(name,nam);}
-        char* set_publisher(char* publisher){strcpy(pub,publisher);}
-        char* set_genre(char* gen){strcpy(gen, genre);}
-        char* set_author(char *auth){strcpy(auth,author);}
+        void set_quantity(int quan){quantity=quan;}
+        void set_name(char *nam){strcpy(name,nam);}
+        void set_publisher(char* publisher){strcpy(pub,publisher);}
+        void set_genre(char* gen){strcpy(gen, genre);}
+        void set_author(char *auth){strcpy(auth,author);}
 
     
 };
