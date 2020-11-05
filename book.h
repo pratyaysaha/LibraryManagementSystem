@@ -21,6 +21,9 @@ class book
             cin.getline(genre,100);
             cout<<"Pub : ";
             cin.getline(pub,100);
+            cout<<"Quantity : ";
+            cin>>quantity;
+            cin.ignore();
         }
         void display()
         {
@@ -29,7 +32,22 @@ class book
                 <<"Name: "<<name<<endl
                 <<"Author: "<<author<<endl
                 <<"Genre : "<<genre <<endl
-                <<"Publisher : "<<pub<<endl;
+                <<"Publisher : "<<pub<<endl
+                <<"Quantity : "<<quantity<<endl;
             cout<<"-----------------------------------"<<endl;
         }
+        int get_bookID(){return bookId;}
+        int get_quantity(){return quantity;}
+        char* get_name(){return name;}
+        char* get_publisher(){return pub;}
+        char* get_genre(){return genre;}
+        char* get_author(){return author;}
+
+        int set_quantity(int quan){quantity=quan;}
+        char* set_name(char *nam){strcpy(name,nam);}
+        char* set_publisher(char* publisher){strcpy(pub,publisher);}
+        char* set_genre(char* gen){strcpy(gen, genre);}
+        char* set_author(char *auth){strcpy(auth,author);}
+
+    
 };

@@ -10,15 +10,20 @@ int main()
 {
     book b;
     book_database db;
-   // b.new_book();
-    //db.upload(b);
+    /* for(int i=0;i<5;i++)
+    {
+        b.new_book();
+        db.upload(b); 
+    } */
+    char a[100];
+    strcpy(a,"penguin");
 
-    vector<book> info=db.download();
+    vector<book> info=db.searchByPublisher(a);
     for(int i=0;i<info.size();i++)
     {
         info[i].display();
-    }
-
+    } 
+    
     
 
 }
