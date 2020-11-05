@@ -1,19 +1,24 @@
 #include<iostream>
 #include<vector>
 #include"admin_database.h"
+#include"book_database.h"
+
 
 using namespace std;
 
 int main()
 {
-    char a[100];
-    strcpy(a,"pratyay");
+    book b;
+    book_database db;
+   // b.new_book();
+    //db.upload(b);
 
-    admin_database db;
-    vector<admin> info=db.searchbyName(a);
+    vector<book> info=db.download();
     for(int i=0;i<info.size();i++)
     {
         info[i].display();
     }
+
+    
 
 }
