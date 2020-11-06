@@ -16,13 +16,14 @@ int main()
         b.new_book();
         db.upload(b); 
     }  */ 
-     /* char a[100];
+      char a[100];
     strcpy(a,"hermit");
 
     vector<book> info=db.download();
-    db.extract(info);   */
+    cout<<db.extract(info);   
     
-     db.deleteRecord(1);
+    // db.deleteRecord(1);
+    //db.upload(2);
     
     
 

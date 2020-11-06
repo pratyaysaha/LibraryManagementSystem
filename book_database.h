@@ -15,6 +15,18 @@ class book_database
             ofile.close();
             return true;
         }
+        void upload(int k)
+        {
+            bool check;
+            for(int i=0;i<k;i++)
+            {
+                book b;
+                b.new_book();
+                check=upload(b);
+                if(check){cout<<"Data "<<i+1<<" is/are uploaded!!"<<endl;}
+                else {cout<<"Not Uploaded !!"<<endl;return;}
+            }
+        }
         vector<book> download()
         {
             vector<book> all_data;
@@ -29,13 +41,21 @@ class book_database
             return all_data;
         }
 
-        void extract(vector<book> &info)
+        bool extract(vector<book> &info)
         {
-            if(info.size()==0){cout<<"No data"<<endl; return;}
+            if(info.size()==0){cout<<"No data"<<endl; return false;}
             for(int i=0;i<info.size();i++)
             {
                 info[i].display();
             }
+            cout<<"Return to Menu (y/n) : ";
+            char choice;
+            cin>>choice;
+            if(choice=='y'||choice=='Y')
+                return true;
+            else
+                return false;
+            
         }
         vector<book> searchByBookID(int id)
         {
@@ -258,7 +278,6 @@ class book_database
             else{ cout<<"Modified Succesfully !!"<<endl;}
             ifile.close();
         }
-
 
         
 };
