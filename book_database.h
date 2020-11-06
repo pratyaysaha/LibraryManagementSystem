@@ -164,6 +164,96 @@ class book_database
             cout<<"Deleted succefully"<<endl;
             return true;
         }
+        bool try_again()
+        {
+            cout<<"Do you want to modify more? (y/n) :";
+            char ch;
+            cin>>ch;
+            if(ch=='y'||ch=='Y')
+                return true;
+            return false;
+        }
+        void modify_menu(book &b)
+        {
+            cout<<"Modify : "<<endl
+                <<"1. Name "<<endl
+                <<"2. Author"<<endl
+                <<"3. Genre"<<endl
+                <<"4. Publisher"<<endl
+                <<"5. Quantity to be added"<<endl;
+            cout<<"Choice: ";
+            int choice;
+            cin>>choice;
+            char mod[100];
+            int q;
+            char ch;
+            switch(choice)
+            {
+                case 1 : 
+                    cout<<"Name : ";
+                    cin.ignore();
+                    cin.getline(mod,100);
+                    b.set_name(mod);
+                   
+                    break;
+                case 2:
+                    cout<<"Author : ";
+                    cin.getline(mod,100);
+                    b.set_author(mod);
+                   
+                    break;
+                case 3: 
+                    cout<<"Genre : ";
+                    cin.ignore();
+                    cin.getline(mod,10);
+                    b.set_name(mod);
+                    
+                    break;
+                case 4:
+                    cout<<"Publisher : ";
+                    cin.ignore();
+                    cin.getline(mod,100);
+                    b.set_publisher(mod);
+                    
+                    break;
+                case 5:
+                    cout<<"Quantity to be added : ";
+                    cin>>q;
+                    b.set_quantity(q);
+                    
+                    break;
+                default:
+                    cout<<"Wrong choice!!";
+                   
+            }
+            if(try_again()){modify_menu(b);}
+        }
+        void modify(int bookid)
+        {
+            book b;
+            fstream ifile;
+            int pos;
+            int found=0;
+            ifile.open("book",ios::in|ios::out);
+            if(!ifile){cout<<"Error"<<endl; return;}
+            while(!ifile.eof())
+            {
+                pos=ifile.tellg();
+                ifile.read((char*)&b, sizeof(b));
+                if(b.get_bookID()==bookid)
+                {
+                    b.display();
+                    modify_menu(b);
+                    found=1;
+                    ifile.seekg(pos);
+                    ifile.write((char*)&b,sizeof(b));
+                    break;
+                }
+            }
+            if (found==0) { cout<<"Record not found "<<endl;}
+            else{ cout<<"Modified Succesfully !!"<<endl;}
+            ifile.close();
+        }
 
 
         

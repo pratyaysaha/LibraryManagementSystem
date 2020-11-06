@@ -4,7 +4,7 @@ using namespace std;
 class book
 {
     private:
-        int bookId, quantity;
+        int bookId, quantity, presentQuantity;
         char name[100], author[100], genre[100],pub[100];
     public:
         book():bookId(-1),quantity(-1){}
@@ -24,6 +24,7 @@ class book
             cout<<"Quantity : ";
             cin>>quantity;
             cin.ignore();
+            presentQuantity=quantity;
         }
         void display()
         {
@@ -33,7 +34,8 @@ class book
                 <<"Author: "<<author<<endl
                 <<"Genre : "<<genre <<endl
                 <<"Publisher : "<<pub<<endl
-                <<"Quantity : "<<quantity<<endl;
+                <<"Quantity : "<<quantity<<endl
+                <<"Present Quantity : "<<presentQuantity<<endl;
             cout<<"-----------------------------------"<<endl;
         }
         int get_bookID(){return bookId;}
@@ -43,7 +45,7 @@ class book
         char* get_genre(){return genre;}
         char* get_author(){return author;}
 
-        void set_quantity(int quan){quantity=quan;}
+        void set_quantity(int quan){quantity+=quan;presentQuantity+=quan;}
         void set_name(char *nam){strcpy(name,nam);}
         void set_publisher(char* publisher){strcpy(pub,publisher);}
         void set_genre(char* gen){strcpy(gen, genre);}

@@ -10,18 +10,19 @@ int main()
 {
     book b;
      book_database db;
-     /*
-      for(int i=0;i<3;i++)
+     
+    /*   for(int i=0;i<5;i++)
     {
         b.new_book();
         db.upload(b); 
-    }  */
-    char a[100];
+    }  */ 
+     /* char a[100];
     strcpy(a,"hermit");
 
     vector<book> info=db.download();
-    db.extract(info); 
-     
+    db.extract(info);   */
+    
+     db.modify(5);
     
     
 
