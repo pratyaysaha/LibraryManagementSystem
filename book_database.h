@@ -126,6 +126,7 @@ class book_database
         {
             book b;
             int found=0;
+            char choice;
             ofstream ofile("temp",ios::out|ios::app);
             ifstream ifile("book",ios::in);
             if(!ifile){cout<<"Error"<<endl; return false;}
@@ -136,7 +137,6 @@ class book_database
                     b.display();
                     found=1;
                     cout<<"Do you want to delete ? (y/n) : ";
-                    char choice;
                     cin>>choice;
                     if(choice=='n'||choice=='N')
                     {
@@ -161,7 +161,11 @@ class book_database
                 cout<<"Record not Found !! ";
                 return false;
             }
-            cout<<"Deleted succefully"<<endl;
+            if(choice=='y'||choice=='Y')
+                cout<<"Deleted succefully"<<endl;
+            else
+                cout<<"Delete Aborted!!!"<<endl;
+            
             return true;
         }
         bool try_again()

@@ -22,7 +22,7 @@ int main()
     vector<book> info=db.download();
     db.extract(info);   */
     
-     db.modify(5);
+     db.deleteRecord(1);
     
     
 
