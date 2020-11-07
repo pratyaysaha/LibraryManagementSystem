@@ -134,7 +134,14 @@ class admin_menu
                 }
                 case 12:
                 {
-                    
+                    system("cls");
+                    cout<<"Enter the BOOK ID to be Updated : ";
+                    cin>>dat;
+                    bdb.modify(dat);
+                    Sleep(1000);
+                    system("cls");
+                    menu();
+                    break;
                 }
                     
             } 

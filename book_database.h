@@ -254,14 +254,15 @@ class book_database
             }
             if(try_again()){modify_menu(b);}
         }
-        void modify(int bookid)
+        bool modify(int bookid)
         {
             book b;
             fstream ifile;
+            bool res= true;
             int pos;
             int found=0;
             ifile.open("book",ios::in|ios::out);
-            if(!ifile){cout<<"Error"<<endl; return;}
+            if(!ifile){cout<<"Error"<<endl; return false;}
             while(!ifile.eof())
             {
                 pos=ifile.tellg();
@@ -276,9 +277,10 @@ class book_database
                     break;
                 }
             }
-            if (found==0) { cout<<"Record not found "<<endl;}
+            if (found==0) { cout<<"Record not found "<<endl; res=false;}
             else{ cout<<"Modified Succesfully !!"<<endl;}
             ifile.close();
+            return res;
         }
         bool searchMenu()
         {
