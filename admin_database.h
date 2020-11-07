@@ -25,6 +25,21 @@ class admin_database
             }
             ifile.close();
         }
+        bool extract(vector<admin> &info)
+        {
+            if(info.size()==0){cout<<"No data"<<endl; return false;}
+            for(int i=0;i<info.size();i++)
+            {
+                info[i].display();
+            }
+            cout<<"Return to Menu (y/n) : ";
+            char choice;
+            cin>>choice;
+            if(choice=='y'||choice=='Y')
+                return true;
+            else
+                return false;
+        }
         vector<admin> searchbyAdminID(char element[])
         {
             vector<admin> searchRes;
