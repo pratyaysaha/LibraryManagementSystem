@@ -1,8 +1,6 @@
 #include<iostream>
 #include<vector>
-#include"admin_database.h"
-#include"book_database.h"
-
+#include"adminMenu.h"
 
 using namespace std;
 
@@ -16,15 +14,16 @@ int main()
         b.new_book();
         db.upload(b); 
     }  */ 
-      char a[100];
+/*       char a[100];
     strcpy(a,"hermit");
 
     vector<book> info=db.download();
-    cout<<db.extract(info);   
+    cout<<db.extract(info);  */  
     
     // db.deleteRecord(1);
     //db.upload(2);
-    
+    admin_menu ad;
+    ad.menu();
     
 
 
