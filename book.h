@@ -48,8 +48,8 @@ class book
         void set_quantity(int quan){quantity+=quan;presentQuantity+=quan;}
         void set_name(char *nam){strcpy(name,nam);}
         void set_publisher(char* publisher){strcpy(pub,publisher);}
-        void set_genre(char* gen){strcpy(gen, genre);}
-        void set_author(char *auth){strcpy(auth,author);}
+        void set_genre(char* gen){strcpy(genre, gen);}
+        void set_author(char *auth){strcpy(author,auth);}
 
     
 };

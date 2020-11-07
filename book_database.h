@@ -224,6 +224,7 @@ class book_database
                     break;
                 case 2:
                     cout<<"Author : ";
+                    cin.ignore();
                     cin.getline(mod,100);
                     b.set_author(mod);
                    
@@ -232,7 +233,7 @@ class book_database
                     cout<<"Genre : ";
                     cin.ignore();
                     cin.getline(mod,10);
-                    b.set_name(mod);
+                    b.set_genre(mod);
                     
                     break;
                 case 4:

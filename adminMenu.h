@@ -47,6 +47,8 @@ class admin_menu
                 case 1:   
                     a.new_admin();
                     adb.upload(a);
+                    Sleep(1000);
+                    system("cls");
                     break;
 
                 case 2:
@@ -99,6 +101,8 @@ class admin_menu
                     b.new_book();
                     if(bdb.upload(b)){cout<<"Uploaded succesfully !!"<<endl;}
                     else{ cout<<"Error!!!!"<<endl;}
+                    Sleep(1000);
+                    system("cls");
                     menu();
                     break;
                 }
