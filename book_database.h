@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<vector>
+#include<string.h>
 #include"book.h"
 using namespace std;
 
@@ -43,11 +44,12 @@ class book_database
 
         bool extract(vector<book> &info)
         {
-            if(info.size()==0){cout<<"No data"<<endl; return false;}
+            if(info.size()==0){cout<<"No data"<<endl;}
             for(int i=0;i<info.size();i++)
             {
                 info[i].display();
             }
+            cout<<"Total Data : "<<info.size()<<endl;
             cout<<"Return to Menu (y/n) : ";
             char choice;
             cin>>choice;
@@ -277,6 +279,89 @@ class book_database
             if (found==0) { cout<<"Record not found "<<endl;}
             else{ cout<<"Modified Succesfully !!"<<endl;}
             ifile.close();
+        }
+        bool searchMenu()
+        {
+            cout<<"Search : "<<endl
+                <<"1. BookID "<<endl
+                <<"2. Name"<<endl
+                <<"3. Author"<<endl
+                <<"4. Publisher"<<endl
+                <<"5. Genre"<<endl
+                <<"0. Get back to Main Menu"<<endl;
+            cout<<"Choice: ";
+            int choice;
+            cin>>choice;
+            char mod[100];
+            int q;
+            char ch;
+            bool res=false;
+            switch(choice)
+            {
+                case 1 : 
+                {
+                    cout<<"Id : ";
+                    cin.ignore();
+                    cin>>q;
+                    vector<book> info= searchByBookID(q);
+                    if(extract(info)){system("cls"); searchMenu();}
+                    else{exit(1);}
+                    break;
+                }
+                case 2:
+                {
+                    cout<<"Name : ";
+                    cin.ignore();
+                    cin.getline(mod,100);
+                    vector<book> info= searchByName(mod);
+                    if(extract(info)){system("cls"); searchMenu();}
+                    else{exit(1);}
+                    break;
+                }
+                case 3: 
+                {
+                    cout<<"Author : ";
+                    cin.ignore();
+                    cin.getline(mod,10);
+                    vector<book> info= searchByAuthor(mod);
+                    if(extract(info)){system("cls"); searchMenu();}
+                    else{exit(1);}
+                    
+                    break;
+                }
+                case 4:
+                {
+                    cout<<"Publisher : ";
+                    cin.ignore();
+                    cin.getline(mod,100);
+                    vector<book> info= searchByPublisher(mod);
+                    if(extract(info)){system("cls"); searchMenu();}
+                    else{exit(1);}
+                    break;
+                }
+                case 5:
+                {
+                    cout<<"Genre : ";
+                    cin.ignore();
+                    cin.getline(mod,100);
+                    vector<book> info= searchByGenre(mod);
+                    if(extract(info)){system("cls"); searchMenu();}
+                    else{exit(1);}
+                    break;
+                }
+                case 0:
+                {
+                    res=true;
+                    break;
+                }
+                default:
+                {
+                    system("cls");
+                    cout<<"Wrong choice!!"<<endl;
+                    res= searchMenu();
+                }
+            }
+            return res;
         }
 
         

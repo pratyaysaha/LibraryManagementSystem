@@ -10,7 +10,7 @@ class admin
     private:
         char username[100], password[100];
     public:
-        admin():name("name"),gender("gender"){}
+        admin():name(),gender(){}
         void new_admin()
         {
             cout<<"Name : ";
