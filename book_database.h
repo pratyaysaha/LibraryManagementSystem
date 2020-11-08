@@ -330,7 +330,7 @@ class book_database
                     cin.ignore();
                     cin>>q;
                     vector<book> info= searchByBookID(q);
-                    if(extract(info)){system("cls"); searchMenu();}
+                    if(extract(info)){system("cls"); res=searchMenu();}
                     else{exit(1);}
                     break;
                 }
@@ -340,7 +340,7 @@ class book_database
                     cin.ignore();
                     cin.getline(mod,100);
                     vector<book> info= searchByName(mod);
-                    if(extract(info)){system("cls"); searchMenu();}
+                    if(extract(info)){system("cls");res= searchMenu();}
                     else{exit(1);}
                     break;
                 }
@@ -350,7 +350,7 @@ class book_database
                     cin.ignore();
                     cin.getline(mod,10);
                     vector<book> info= searchByAuthor(mod);
-                    if(extract(info)){system("cls"); searchMenu();}
+                    if(extract(info)){system("cls"); res=searchMenu();}
                     else{exit(1);}
                     
                     break;
@@ -361,7 +361,7 @@ class book_database
                     cin.ignore();
                     cin.getline(mod,100);
                     vector<book> info= searchByPublisher(mod);
-                    if(extract(info)){system("cls"); searchMenu();}
+                    if(extract(info)){system("cls"); res=searchMenu();}
                     else{exit(1);}
                     break;
                 }
@@ -371,7 +371,7 @@ class book_database
                     cin.ignore();
                     cin.getline(mod,100);
                     vector<book> info= searchByGenre(mod);
-                    if(extract(info)){system("cls"); searchMenu();}
+                    if(extract(info)){system("cls"); res=searchMenu();}
                     else{exit(1);}
                     break;
                 }
