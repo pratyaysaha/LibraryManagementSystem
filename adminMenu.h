@@ -160,6 +160,13 @@ class admin_menu
                     menu();
                     break;
                 }
+                case 100:
+                {
+                    adb.open_log();
+                    Sleep(1000);
+                    system("cls");
+                    menu();
+                }
                     
             } 
         }
