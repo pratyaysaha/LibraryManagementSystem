@@ -2,6 +2,7 @@
 #include<fstream>
 #include<vector>
 #include<string.h>
+#include<string>
 #include"book.h"
 using namespace std;
 
@@ -14,6 +15,7 @@ class book_database
             if(!ofile){cout<<"Error"<<endl; return false;}
             ofile.write((char*)&b, sizeof(b));
             ofile.close();
+            log("upload 1 book");
             return true;
         }
         void upload(int k)
@@ -39,6 +41,7 @@ class book_database
                 all_data.push_back(b);
             }
             ifile.close();
+            log("downloaded all books");
             return all_data;
         }
 
@@ -74,6 +77,7 @@ class book_database
                 }
             }
             ifile.close();
+            log("serarch by book id");
             return all_data;
         }
         vector<book> searchByName(char *name)
@@ -90,6 +94,7 @@ class book_database
                 }
             }
             ifile.close();
+            log("serarch by book name");
             return all_data;
         }
 
@@ -107,6 +112,7 @@ class book_database
                 }
             }
             ifile.close();
+            log("serarch by book author");
             return all_data;
         }
 
@@ -124,6 +130,7 @@ class book_database
                 }
             }
             ifile.close();
+            log("serarch by book publisher");
             return all_data;
         }
 
@@ -141,6 +148,7 @@ class book_database
                 }
             }
             ifile.close();
+            log("serarch by book genre");
             return all_data;
         }
 
@@ -181,12 +189,19 @@ class book_database
             if(found==0)
             {
                 cout<<"Record not Found !! ";
+                log("record book id : "+to_string(bookid)+" not found");
                 return false;
             }
             if(choice=='y'||choice=='Y')
+            {
                 cout<<"Deleted succefully"<<endl;
+                log("record book id : "+to_string(bookid)+" deleted successfull");
+            }
             else
+            {
                 cout<<"Delete Aborted!!!"<<endl;
+                log("record book id : "+to_string(bookid)+" deleted aborted");
+            }
             
             return true;
         }
@@ -263,7 +278,7 @@ class book_database
             int pos;
             int found=0;
             ifile.open("book",ios::in|ios::out);
-            if(!ifile){cout<<"Error"<<endl; return false;}
+            if(!ifile){cout<<"Error"<<endl;log("modify error");return false;}
             while(!ifile.eof())
             {
                 pos=ifile.tellg();
@@ -278,8 +293,16 @@ class book_database
                     break;
                 }
             }
-            if (found==0) { cout<<"Record not found "<<endl; res=false;}
-            else{ cout<<"Modified Succesfully !!"<<endl;}
+            if (found==0) 
+            { 
+                cout<<"Record not found "<<endl; 
+                log("record book id : "+to_string(bookid)+" not found to be modified");
+                res=false;
+            }
+            else{ 
+                cout<<"Modified Succesfully !!"<<endl; 
+                log("record book id : "+to_string(bookid)+" modified successfull");            
+            }
             ifile.close();
             return res;
         }
@@ -366,6 +389,14 @@ class book_database
             }
             return res;
         }
-
-        
+        void log(string work)
+        {
+            ofstream ofile;
+            ofile.open("log.txt",ios::out|ios::app);
+            time_t now = time(0);
+            string dt = ctime(&now);
+            dt= dt+ " ::::::: "+ work;
+            ofile<<dt<<endl;
+            ofile.close();
+        }
 };
