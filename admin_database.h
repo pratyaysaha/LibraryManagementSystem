@@ -9,6 +9,7 @@ class admin_database
     public:
         void upload(admin &ad)
         {
+            
             ofstream ofile;
             ofile.open("admin",ios::out|ios::app);
             ofile.write((char*)&ad,sizeof(ad));
@@ -93,6 +94,26 @@ class admin_database
                 }
             }
             ifile.close();
+            return false;
+        }
+        bool masterLogin()
+        {
+            char uname[100], pass[100];
+            cout<<"Username : ";
+            cin.ignore();
+            cin.getline(uname,100);
+            cout<<"Password : ";
+            cin.getline(pass,100);
+            char user[100], password[100];
+            strcpy(user, "MASTER@ADMIN");
+            strcpy(password,"ADMIN123");
+
+            if(strcmp(uname,user)==0 && strcmp(pass, password)==0)
+            {
+                cout<<"WELCOME MASTER ADMIN "<<endl<<endl;
+                return true;
+            }
+            cout<<"This is Restricted Access!!"<<endl;
             return false;
         }
 };
