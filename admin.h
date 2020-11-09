@@ -1,6 +1,5 @@
 #include<iostream>
 #include<string.h>
-
 using namespace std;
 
 class admin
@@ -14,7 +13,6 @@ class admin
         void new_admin()
         {
             cout<<"Name : ";
-            cin.ignore();
             cin.getline(name,100);
             cout<<"Administration Id : ";
             cin.getline(admin_id,100);

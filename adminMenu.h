@@ -30,8 +30,9 @@ class admin_menu
                 <<"9.  Get all BOOK Data"<<endl
                 <<"10. Search" <<endl
                 <<"11. Delete a BOOK"<<endl
-                <<"12. Update a BOOK"<<endl;
+                <<"12. Update a BOOK"<<endl
                 //user part to be added
+                <<"-1. Exit"<<endl;
             cout<<"-----------------------------"<<endl;
             cout<<"Option : ";
             cin>>choice;
@@ -44,12 +45,22 @@ class admin_menu
             
             switch(choice)
             {
+                case -1:
+                {
+                    cout<<"Thank you !!";
+                    Sleep(1000);
+                    exit(1);
+                }
                 case 1:   
+                {
+                    if(!adb.masterLogin()){Sleep(1000); system("cls"); menu();}
                     a.new_admin();
                     adb.upload(a);
                     Sleep(1000);
                     system("cls");
+                    menu();
                     break;
+                }
 
                 case 2:
                 {
@@ -82,6 +93,7 @@ class admin_menu
                 }
                 case 5:
                 {
+                    if(!adb.masterLogin()){Sleep(1000); system("cls"); menu();}
                     cout<<"Admin ID : ";
                     cin.ignore();
                     cin.getline(key,100);
@@ -90,6 +102,7 @@ class admin_menu
                 }
                 case 6:
                 {
+                    if(!adb.masterLogin()){Sleep(1000); system("cls"); menu();}
                     cout<<"Admin ID : ";
                     cin.ignore();
                     cin.getline(key,100);
@@ -146,6 +159,13 @@ class admin_menu
                     system("cls");
                     menu();
                     break;
+                }
+                case 100:
+                {
+                    adb.open_log();
+                    Sleep(1000);
+                    system("cls");
+                    menu();
                 }
                     
             } 
