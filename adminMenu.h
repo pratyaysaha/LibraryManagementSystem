@@ -3,8 +3,7 @@
 #include<vector>
 #include<windows.h>
 #include"admin_database.h"
-#include"book_database.h"
-
+#include"issue_database.h"
 using namespace std;
 
 class admin_menu
@@ -31,6 +30,10 @@ class admin_menu
                 <<"10. Search" <<endl
                 <<"11. Delete a BOOK"<<endl
                 <<"12. Update a BOOK"<<endl
+                <<"13. Issue a Book"<<endl
+                <<"14. Get all Issues"<<endl 
+                <<"15. Return a book"<<endl
+                <<"16. Get all Un-returned issues"<<endl
                 //user part to be added
                 <<"-1. Exit"<<endl;
             cout<<"-----------------------------"<<endl;
@@ -38,8 +41,10 @@ class admin_menu
             cin>>choice;
             admin_database adb;
             book_database bdb;
+            issue_database idb;
             admin a;
             book b;
+            issue i;
             int dat;
             char key[100];
             
@@ -160,10 +165,65 @@ class admin_menu
                     menu();
                     break;
                 }
+                case 13:
+                {
+                    if(i.new_issue())
+                    {
+                        if(idb.upload(i))
+                        {
+                            cout<<"Added!!!"<<endl;
+                        }
+                        else
+                        {
+                            cout<<"error!!"<<endl;
+                        }
+                    }
+                    else 
+                        cout<<"error!!";
+                    Sleep(1000);
+                    system("cls");
+                    menu();
+                    break;
+                }
+                case 14:
+                {
+                    system("cls");
+                    vector<issue> info =idb.download();
+                    if(idb.extract(info)) {system("cls"); menu();}
+                    else{exit(1);}
+                    break;
+                }
+                case 15:
+                {
+                    cout<<"Enter the issueID : ";
+                    cin>>dat;
+                    if(idb.return_a_book(dat))
+                        cout<<"Successful"<<endl;
+                    else
+                        cout<<"Error"<<endl;
+                    Sleep(1000);
+                    system("cls");
+                    menu();
+                    break;
+                }
+                case 16 :
+                {
+                    system("cls");
+                    vector<issue> info =idb.all_unreturn_book();
+                    if(idb.extract(info)) {system("cls"); menu();}
+                    else{exit(1);}
+                    break;
+                }
                 case 100:
                 {
                     adb.open_log();
                     Sleep(1000);
+                    system("cls");
+                    menu();
+                }
+                case 101:
+                {
+                    remove("issue");
                     system("cls");
                     menu();
                 }

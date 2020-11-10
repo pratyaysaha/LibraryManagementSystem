@@ -42,9 +42,3 @@ class user
         char* get_name(){return name;}
         long get_phone(){return phone;}
 };
-int main()
-{
-    user u1;
-    u1.new_user();
-    u1.display();
-}

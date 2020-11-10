@@ -44,12 +44,14 @@ class book
         char* get_publisher(){return pub;}
         char* get_genre(){return genre;}
         char* get_author(){return author;}
-
+        int get_presentQuan(){return presentQuantity;}
+        
         void set_quantity(int quan){quantity+=quan;presentQuantity+=quan;}
         void set_name(char *nam){strcpy(name,nam);}
         void set_publisher(char* publisher){strcpy(pub,publisher);}
         void set_genre(char* gen){strcpy(genre, gen);}
         void set_author(char *auth){strcpy(author,auth);}
-
+        void set_presentQuan(){presentQuantity-=1;}
+        void set_presenQuanincement(){presentQuantity+=1;}
     
 };
