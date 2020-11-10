@@ -22,8 +22,9 @@ class user
             cout<<"Phone Number : ";
             cin>>phone;
             cout<<"Username : ";
-            cin>>username;
-            cout<<"password : ";
+            cin.ignore();
+            cin.getline(username,100);
+            cout<<"Password : ";
             cin.getline(password,100);
         }
         void display()

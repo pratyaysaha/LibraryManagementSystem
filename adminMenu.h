@@ -4,6 +4,7 @@
 #include<windows.h>
 #include"admin_database.h"
 #include"issue_database.h"
+#include"user_database.h"
 using namespace std;
 
 class admin_menu
@@ -11,7 +12,7 @@ class admin_menu
     public:
         void menu()
         {
-            int choice;
+            int choice; 
             cout<<"------------------------------"<<endl;
             cout<<"Administration Menu"<<endl;
             cout<<"------------------------------"<<endl;
@@ -29,12 +30,19 @@ class admin_menu
                 <<"9.  Get all BOOK Data"<<endl
                 <<"10. Search" <<endl
                 <<"11. Delete a BOOK"<<endl
-                <<"12. Update a BOOK"<<endl
+                <<"12. Update a BOOK"<<endl<<endl
                 <<"13. Issue a Book"<<endl
                 <<"14. Get all Issues"<<endl 
                 <<"15. Return a book"<<endl
                 <<"16. Get all Un-returned issues"<<endl
-                //user part to be added
+                <<"------------------------------"<<endl
+                <<"USER : "<<endl<<endl
+                <<"17. Add a user"<<endl
+                <<"18. Add Multiple USER"<<endl
+                <<"19. Get all Users"<<endl
+                <<"20. Search user by UserID"<<endl
+                <<"21. Search user by UserName"<<endl
+                <<"------------------------------"<<endl
                 <<"-1. Exit"<<endl;
             cout<<"-----------------------------"<<endl;
             cout<<"Option : ";
@@ -42,9 +50,11 @@ class admin_menu
             admin_database adb;
             book_database bdb;
             issue_database idb;
+            user_database udb;
             admin a;
             book b;
             issue i;
+            user u;
             int dat;
             char key[100];
             
@@ -214,6 +224,55 @@ class admin_menu
                     else{exit(1);}
                     break;
                 }
+                case 17:
+                {
+                    u.new_user();
+                    if(udb.upload(u)){cout<<"User added"<<endl;}
+                    else
+                    {
+                        cout<<"Not uploaded!!"<<endl;
+                    }
+                    Sleep(1000);
+                    system("cls");
+                    menu();
+                    break;
+                    
+                }
+                case 18:
+                {
+                    system("cls");
+                    menu();
+                    break;
+                }
+                case 19:
+                {
+                    system("cls");
+                    vector<user> info=udb.download();
+                    if(udb.extract(info)) {system("cls"); menu();}
+                    else{exit(1);}
+                    break;
+
+                }
+                case 20:
+                {
+                    system("cls");
+                    cout<<"Enter the user ID : ";
+                    cin.getline(key,100);
+                    vector<user> info=udb.searchbyUserID(key);
+                    if(udb.extract(info)) {system("cls"); menu();}
+                    else{exit(1);}
+                    break;
+                }
+                case 21:
+                {
+                    system("cls");
+                    cout<<"Enter the user name : ";
+                    cin.getline(key,100);
+                    vector<user> info=udb.searchbyName(key);
+                    if(udb.extract(info)) {system("cls"); menu();}
+                    else{exit(1);}
+                    break;
+                }
                 case 100:
                 {
                     adb.open_log();
@@ -227,7 +286,31 @@ class admin_menu
                     system("cls");
                     menu();
                 }
-                    
+                case 102:
+                {
+                    remove("user");
+                    system("cls");
+                    menu();
+                }
+                case 103:
+                {
+                    remove("admin");
+                    system("cls");
+                    menu();
+                }
+                case 104:
+                {
+                    remove("book");
+                    system("cls");
+                    menu();
+                }
+                default:
+                {
+                    cout<<"wrong choice!!";
+                    Sleep(1000);
+                    system("cls");
+                    menu();
+                }  
             } 
         }
         

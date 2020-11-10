@@ -8,12 +8,14 @@ using namespace std;
 class user_database
 {
     public:
-        void upload(user &ad)
+        bool upload(user &ad)
         {
             ofstream ofile;
             ofile.open("user",ios::out|ios::app);
+            if(!ofile){cout<<"Error!!"<<endl; return false;}
             ofile.write((char*)&ad,sizeof(ad));
             ofile.close();
+            return true;
         }
         vector<user> download()
         {
