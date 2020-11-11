@@ -4,7 +4,7 @@
 #include<windows.h>
 #include"admin_database.h"
 #include"issue_database.h"
-//#include"user_database.h"
+//#include"user_database.h" // already included in issue.h
 using namespace std;
 
 class admin_menu
@@ -282,25 +282,25 @@ class admin_menu
                 }
                 case 101:
                 {
-                    remove("issue");
+                    remove("issue.bin");
                     system("cls");
                     menu();
                 }
                 case 102:
                 {
-                    remove("user");
+                    remove("user.bin");
                     system("cls");
                     menu();
                 }
                 case 103:
                 {
-                    remove("admin");
+                    remove("admin.bin");
                     system("cls");
                     menu();
                 }
                 case 104:
                 {
-                    remove("book");
+                    remove("book.bin");
                     system("cls");
                     menu();
                 }
