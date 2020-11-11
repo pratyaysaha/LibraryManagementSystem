@@ -11,7 +11,7 @@ class user_database
         bool upload(user &ad)
         {
             ofstream ofile;
-            ofile.open("user",ios::out|ios::app);
+            ofile.open("user.bin",ios::out|ios::app|ios::binary);
             if(!ofile){cout<<"Error!!"<<endl; return false;}
             ofile.write((char*)&ad,sizeof(ad));
             ofile.close();
@@ -22,7 +22,7 @@ class user_database
             vector<user> data;
             user ad;
             ifstream ifile;
-            ifile.open("user",ios::in);
+            ifile.open("user.bin",ios::in|ios::binary);
             while(ifile.read((char*)&ad,sizeof(ad)))
             {
                 data.push_back(ad);
@@ -52,7 +52,7 @@ class user_database
             cout<<"Key :"<<element<<endl; 
             user ad;
             ifstream ifile;
-            ifile.open("user",ios::in);
+            ifile.open("user.bin",ios::in|ios::binary);
             while(ifile.read((char*)&ad,sizeof(ad)))
             {
                 if(strcmp(ad.get_user_id(),element)==0)
@@ -70,7 +70,7 @@ class user_database
             cout<<"Key : "<<Name<<endl;
             user ad;
             ifstream ifile;
-            ifile.open("user",ios::in);
+            ifile.open("user.bin",ios::in|ios::binary);
             while(ifile.read((char*)&ad,sizeof(ad)))
             {
                 if(strcmp(ad.get_name(),Name)==0)
@@ -87,7 +87,7 @@ class user_database
             cout<<uname<<" "<<pass<<endl;
             user ad;
             ifstream ifile;
-            ifile.open("user",ios::in);
+            ifile.open("user.bin",ios::in|ios::binary);
             while(ifile.read((char*)&ad,sizeof(ad)))
             {
                 if((strcmp(ad.get_username(),uname)==0) && (strcmp(ad.get_password(),pass)==0))

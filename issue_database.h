@@ -13,7 +13,7 @@ class issue_database
     public:
         bool upload(issue &b)    
         {
-            ofstream ofile("issue",ios::out|ios::app);
+            ofstream ofile("issue.bin",ios::out|ios::app|ios::binary);
             if(!ofile){cout<<"Error"<<endl; return false;}
             ofile.write((char*)&b, sizeof(b));
             ofile.close();
@@ -36,7 +36,7 @@ class issue_database
         {
             vector<issue> all_data;
             issue b;
-            ifstream ifile("issue",ios::in);
+            ifstream ifile("issue.bin",ios::in|ios::binary);
             if(!ifile){cout<<"Error"<<endl; return all_data;}
             while(ifile.read((char*)&b,sizeof(b)))
             {
@@ -69,7 +69,7 @@ class issue_database
         {
             vector<issue> all_data;
             issue b;
-            ifstream ifile("issue",ios::in);
+            ifstream ifile("issue.bin",ios::in|ios::binary);
             if(!ifile){cout<<"Error"<<endl; return all_data;}
             while(ifile.read((char*)&b,sizeof(b)))
             {
@@ -90,7 +90,7 @@ class issue_database
             int bookid;
             int pos;
             int found=0;
-            ifile.open("issue",ios::in|ios::out);
+            ifile.open("issue.bin",ios::in|ios::out|ios::binary);
             if(!ifile){cout<<"Error"<<endl;return false;}
             while(!ifile.eof())
             {
@@ -115,7 +115,7 @@ class issue_database
                 bool res = true;
                 int pos;
                 int found = 0;
-                ifile.open("book", ios::in | ios::out);
+                ifile.open("book.bin", ios::in | ios::out|ios::binary);
                 if (!ifile)
                 {
                     cout << "Error" << endl;

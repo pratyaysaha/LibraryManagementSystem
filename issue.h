@@ -3,6 +3,7 @@
 #include <ctime>
 #include<string>
 #include"book_database.h"
+#include"user_database.h"
 using namespace std;
 
 
@@ -29,8 +30,10 @@ class issue
             cout<<"UserID : ";
             cin.ignore();
             cin.getline(userid,100);
+            if(!check_user(userid)) {cout<<"user not found !!!"<<endl; Sleep(1000); return false;}
             cout<<"AdminID : ";
             cin.getline(adminid,100);
+            if(!check_admin(adminid)){cout<<"Admin not found !!!"<<endl; Sleep(1000); return false;}
             string idate= to_string(ltm->tm_mday)+"."+to_string(1+ltm->tm_mon)+"."+to_string(1900 + ltm->tm_year);
             strcpy(issue_date,idate.c_str());
             isreturn=false;
@@ -76,7 +79,7 @@ class issue
         {
             bool check=false,check2=false;
             book b;
-            ifstream ifile("book",ios::in);
+            ifstream ifile("book.bin",ios::in|ios::binary);
             if(!ifile){cout<<"Error"<<endl; return false;}
             while(ifile.read((char*)&b,sizeof(b)))
             {
@@ -98,7 +101,7 @@ class issue
             bool res= true;
             int pos;
             int found=0;
-            ifile.open("book",ios::in|ios::out);
+            ifile.open("book.bin",ios::in|ios::out|ios::binary);
             if(!ifile){cout<<"Error"<<endl;return false;}
             while(!ifile.eof())
             {
@@ -115,6 +118,44 @@ class issue
             ifile.close();
             return true;
         }
+
+        bool check_user(char *userid)
+        {
+            user h;
+            bool res=false;
+            ifstream ifile("user.bin", ios::in|ios::binary);
+            while(ifile.read((char*)&h, sizeof(h)))
+            {
+                if(strcmp(h.get_user_id(),userid)==0)
+                {
+                    res= true;
+                    break;
+                }
+            } 
+            ifile.close();
+            return res;
+        }
+        bool check_admin(char *adminid)
+        {
+            admin h;
+            bool res=false;
+            ifstream ifile("admin.bin", ios::in|ios::binary);
+            while(ifile.read((char*)&h, sizeof(h)))
+            {
+                if(strcmp(h.get_admin_id(),adminid)==0)
+                {
+                    res= true;
+                    break;
+                }
+            } 
+            ifile.close();
+            return res;
+        }
+        
+
+
+
+
         bool get_isReturn(){return isreturn;}
         char* get_returndate(){return return_date;}
         char* get_issuedate(){return issue_date;}
