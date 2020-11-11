@@ -89,6 +89,7 @@ class issue_database
             fstream ifile;
             bool res= true, check;
             int bookid;
+            char userid[100];
             int pos;
             int found=0;
             ifile.open("issue.bin",ios::in|ios::out|ios::binary);
@@ -102,6 +103,7 @@ class issue_database
                     if(b.get_isReturn()){cout<<"Already updated!!"<<endl; return false;}
                     b.set_isReturn();
                     bookid=b.get_bookid();
+                    strcpy(userid,b.get_userid());
                     found=1;
                     ifile.seekg(pos);
                     ifile.write((char*)&b,sizeof(b));
@@ -133,7 +135,30 @@ class issue_database
                         break;
                     }
                 }
-               
+                ifile.close();
+                issue i;
+                char path[]="userfolder/";
+                strcat(userid,".bin");
+                strcat(path,userid);
+                ifile.open(path, ios::in | ios::out|ios::binary);
+                 if (!ifile)
+                {
+                    cout << "Error" << endl;
+                    return false;
+                }
+                while(!ifile.eof())
+                {
+                    pos = ifile.tellg();
+                    ifile.read((char*)&i, sizeof(i));
+                    if(i.get_issueid()==issueid)
+                    {
+                        i.set_isReturn();
+                        ifile.seekg(pos);
+                        ifile.write((char*)&i,sizeof(i));
+                        break;
+                    }
+                }
+
             }
             else
             {
