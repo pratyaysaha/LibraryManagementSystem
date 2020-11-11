@@ -39,6 +39,7 @@ class issue
             isreturn=false;
             strcpy(return_date,return_date_calc().c_str());
             reduce_presentQuntity(bookid);
+            
             return true;
         }
         void display()
@@ -152,7 +153,7 @@ class issue
             return res;
         }
         
-
+            
 
 
 

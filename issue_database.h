@@ -17,6 +17,7 @@ class issue_database
             if(!ofile){cout<<"Error"<<endl; return false;}
             ofile.write((char*)&b, sizeof(b));
             ofile.close();
+            user_issueUpdate(b);
             log("upload 1 issue");
             return true;
         }
@@ -114,7 +115,6 @@ class issue_database
                 fstream ifile;
                 bool res = true;
                 int pos;
-                int found = 0;
                 ifile.open("book.bin", ios::in | ios::out|ios::binary);
                 if (!ifile)
                 {
@@ -133,6 +133,7 @@ class issue_database
                         break;
                     }
                 }
+               
             }
             else
             {
@@ -141,7 +142,17 @@ class issue_database
             }
             return true;
         }
-
+        bool user_issueUpdate(issue &h)
+        {
+            char path[]="userfolder/";
+            strcat(h.get_userid(),".bin");
+            strcat(path,h.get_userid());
+            ofstream ofile(path,ios::out|ios::app);
+            if(!ofile){cout<<"error"<<endl; return false;}
+            ofile.write((char*)&h, sizeof(h));
+            ofile.close();
+            return true;
+        }
         void log(string work)
         {
             ofstream ofile;

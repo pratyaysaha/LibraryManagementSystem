@@ -2,8 +2,8 @@
 
 Any addition of feature should be documented
 
-## test-1 is for testing pupose
-## login.cpp is the homepage
+### test-1 is for testing pupose
+### login.cpp is the homepage
 
 <li>Master admin username : MASTER@ADMIN</li>
 <li>Master admin passsword : ADMIN123</li>

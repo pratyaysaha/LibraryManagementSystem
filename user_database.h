@@ -15,6 +15,7 @@ class user_database
             if(!ofile){cout<<"Error!!"<<endl; return false;}
             ofile.write((char*)&ad,sizeof(ad));
             ofile.close();
+            create_user(ad.get_user_id());
             return true;
         }
         vector<user> download()
@@ -97,5 +98,16 @@ class user_database
             }
             ifile.close();
             return false;
+        }
+        bool create_user(char *userid)
+        {
+            bool check=true;
+            char path[]="userfolder/";
+            strcat(userid,".bin");
+            strcat(path,userid);
+            ofstream ofile(path, ios::out|ios::app|ios::binary);
+            if(!ofile){cout<<"error"<<endl; check=false;}
+            ofile.close();
+            return check;
         }
 };

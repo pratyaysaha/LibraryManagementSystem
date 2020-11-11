@@ -257,6 +257,7 @@ class admin_menu
                 {
                     system("cls");
                     cout<<"Enter the user ID : ";
+                    cin.ignore();
                     cin.getline(key,100);
                     vector<user> info=udb.searchbyUserID(key);
                     if(udb.extract(info)) {system("cls"); menu();}
@@ -267,6 +268,7 @@ class admin_menu
                 {
                     system("cls");
                     cout<<"Enter the user name : ";
+                    cin.ignore();
                     cin.getline(key,100);
                     vector<user> info=udb.searchbyName(key);
                     if(udb.extract(info)) {system("cls"); menu();}
@@ -303,6 +305,34 @@ class admin_menu
                     remove("book.bin");
                     system("cls");
                     menu();
+                }
+                case 105:
+                {
+                    cout<<"Enter the user id : ";
+                    cin.ignore();
+                    cin.getline(key,100);
+                    cout<<"User id : "<<key<<endl;
+                    issue i;
+                    char path[]="userfolder/";
+                    strcat(key,".bin");
+                    strcat(path,key);
+                    ifstream ifile(path,ios::in|ios::binary);
+                    if(!ifile){cout<<"error file not found!!"<<endl; Sleep(1000); menu();}
+                    system("cls");
+                    while(ifile.read((char *)&i, sizeof(i)))
+                    {
+                        i.display();
+                    }
+                    ifile.close();
+                    char choice;
+                    cout<<"Return to main menu ? (y/n) : ";
+                    cin>>choice;
+                    if(choice=='y'||choice=='Y')
+                    {
+                        system("cls");
+                        menu();
+                    }
+                    break;
                 }
                 default:
                 {
