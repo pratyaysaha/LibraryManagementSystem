@@ -80,7 +80,7 @@ class issue_database
                 }
             }
             ifile.close();
-            log("downloaded all ureturned issues");
+            log("downloaded all unreturned issues");
             return all_data;
         }
         bool return_a_book(int issueid)
@@ -100,7 +100,7 @@ class issue_database
                 ifile.read((char*)&b, sizeof(b));
                 if(b.get_issueid()==issueid)
                 {
-                    if(b.get_isReturn()){cout<<"Already updated!!"<<endl; return false;}
+                    if(b.get_isReturn()){cout<<"Already updated!!"<<endl; log(to_string(issueid)+" already returned"); return false;}
                     b.set_isReturn();
                     bookid=b.get_bookid();
                     strcpy(userid,b.get_userid());
@@ -158,13 +158,15 @@ class issue_database
                         break;
                     }
                 }
-
+                log(to_string(issueid)+" returned success");
             }
             else
             {
                 cout<<"Record not found"<<endl;
+                log(to_string(issueid)+" not found");
                 return false;
             }
+            
             return true;
         }
         bool user_issueUpdate(issue &h)
@@ -176,6 +178,7 @@ class issue_database
             if(!ofile){cout<<"error"<<endl; return false;}
             ofile.write((char*)&h, sizeof(h));
             ofile.close();
+            log("user file created");
             return true;
         }
         void log(string work)

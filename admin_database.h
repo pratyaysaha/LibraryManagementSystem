@@ -142,5 +142,59 @@ class admin_database
             string topicName = "notepad \"log.txt\"";
             system(topicName.c_str());
         }
-        
+        bool deleteRecord(char element[])
+        {
+            admin  ad;
+            cout<<"key :"<<element<<endl;
+            int found=0;
+            char choice;
+            ofstream ofile("temp.bin",ios::out|ios::app|ios::binary);
+            ifstream ifile;
+			ifile.open("admin.bin",ios::in|ios::binary);
+            
+            while(ifile.read((char*)&ad,sizeof(ad)))
+            {
+                if(strcmp(ad.get_admin_id(),element)==0)
+                {
+                    ad.display();
+                    found=1;
+                    cout<<"Do you want to delete ? (y/n) : ";
+                    cin>>choice;
+                    if(choice=='n'||choice=='N')
+                    {
+                        ofile.write((char*)&ad,sizeof(ad));
+                    }
+                }
+                else
+                {
+                    ofile.write((char*)&ad,sizeof(ad));
+                }
+            }
+            ifile.close();
+            ofile.close();
+
+            remove("admin.bin");
+            rename("temp.bin","admin.bin");
+            ifile.open("admin.bin",ios::in);
+            if(!ifile){cout<<"Database got Corrupted !!"; return false;}
+            ifile.close();
+            if(found==0)
+            {
+                cout<<"Record not Found !! ";
+                log("record admin id not found");
+                return false;
+            }
+            if(choice=='y'||choice=='Y')
+            {
+                cout<<"Deleted succefully"<<endl;
+                log("record admin id  deleted successfull");
+            }
+            else
+            {
+                cout<<"Delete Aborted!!!"<<endl;
+                log("record admin id deleted aborted");
+            }
+            
+            return true;
+        }
 };

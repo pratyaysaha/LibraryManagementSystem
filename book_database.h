@@ -183,7 +183,7 @@ class book_database
 
             remove("book.bin");
             rename("temp.bin","book.bin");
-            ifile.open("book",ios::in);
+            ifile.open("book.bin",ios::in|ios::binary);
             if(!ifile){cout<<"Database got Corrupted !!"; return false;}
             ifile.close();
             if(found==0)

@@ -1,6 +1,8 @@
 #include<iostream>
 #include<fstream>
+#include<windows.h>
 #include"adminMenu.h"
+#include"userMenu.h"
 
 using namespace std;
 void login_menu()
@@ -19,6 +21,13 @@ void login_menu()
     char pass[100];
     switch(choice)
     {
+        case -1:
+        {
+            cout<<"Thank you!!!";
+            Sleep(1000);
+            exit(1);
+            break;
+        }
         case 1:
         {
             cout<<"ADMIN LOGIN : "<<endl;
@@ -46,19 +55,39 @@ void login_menu()
             break;
         }
         case 2:
-            system("cls");
-            //not yet done
-            cout<<"not yet added"<<endl;
-            Sleep(1000);
-            login_menu();
+        {
+           cout<<"USER LOGIN : "<<endl;
+            cout<<"---------------------------"<<endl;
+            cout<<"Username : ";
+            cin.ignore();
+            cin.getline(uname,100);
+            cout<<"Password : ";
+            cin.getline(pass,100);
+            user_database udb;
+            vector<user> login_det=udb.login(uname,pass);
+            if(login_det.size()>0)
+            {
+                system("cls");
+                user_menu um;
+                um.menu(login_det);
+            }
+            else
+            {
+                cout<<" Wrong Username or Password!!!"<<endl;
+                Sleep(1000);
+                system("cls");
+                login_menu();
+            }
             break;
-            
+        }
+        default:
+            cout<<"Wrong choice. Try Again!!"<<endl;
+            Sleep(1000);
+            system("cls");
+            login_menu();
     }
 
 }
-
-
-
 
 int main()
 {   

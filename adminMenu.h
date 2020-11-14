@@ -4,7 +4,6 @@
 #include<windows.h>
 #include"admin_database.h"
 #include"issue_database.h"
-//#include"user_database.h" // already included in issue.h
 using namespace std;
 
 class admin_menu
@@ -41,7 +40,7 @@ class admin_menu
                 <<"18. Add Multiple USER"<<endl
                 <<"19. Get all Users"<<endl
                 <<"20. Search user by UserID"<<endl
-                <<"21. Search user by UserName"<<endl
+                <<"21. Search user by Name"<<endl
                 <<"------------------------------"<<endl
                 <<"-1. Exit"<<endl;
             cout<<"-----------------------------"<<endl;
@@ -110,9 +109,8 @@ class admin_menu
                 {
                     if(!adb.masterLogin()){Sleep(1000); system("cls"); menu();}
                     cout<<"Admin ID : ";
-                    cin.ignore();
                     cin.getline(key,100);
-                    // delete function to be added
+                    if(adb.deleteRecord(key)) {Sleep(1000); system("cls"); menu();}
                     break;
                 }
                 case 6:
@@ -308,8 +306,8 @@ class admin_menu
                 }
                 case 105:
                 {
+                    if(!adb.masterLogin()){cout<<"Restircted !!"<<endl; Sleep(1000); system("cls"); menu();}
                     cout<<"Enter the user id : ";
-                    cin.ignore();
                     cin.getline(key,100);
                     cout<<"User id : "<<key<<endl;
                     issue i;
@@ -317,7 +315,7 @@ class admin_menu
                     strcat(key,".bin");
                     strcat(path,key);
                     ifstream ifile(path,ios::in|ios::binary);
-                    if(!ifile){cout<<"error file not found!!"<<endl; Sleep(1000); menu();}
+                    if(!ifile){cout<<"error file not found!!"<<endl; Sleep(1000); system("cls"); menu();}
                     system("cls");
                     while(ifile.read((char *)&i, sizeof(i)))
                     {
