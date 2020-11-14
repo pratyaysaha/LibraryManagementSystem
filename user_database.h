@@ -8,19 +8,22 @@ using namespace std;
 class user_database
 {
     public:
-        void upload(user &ad)
+        bool upload(user &ad)
         {
             ofstream ofile;
-            ofile.open("user",ios::out|ios::app);
+            ofile.open("user.bin",ios::out|ios::app|ios::binary);
+            if(!ofile){cout<<"Error!!"<<endl; return false;}
             ofile.write((char*)&ad,sizeof(ad));
             ofile.close();
+            create_user(ad.get_user_id());
+            return true;
         }
         vector<user> download()
         {
             vector<user> data;
             user ad;
             ifstream ifile;
-            ifile.open("user",ios::in);
+            ifile.open("user.bin",ios::in|ios::binary);
             while(ifile.read((char*)&ad,sizeof(ad)))
             {
                 data.push_back(ad);
@@ -50,7 +53,7 @@ class user_database
             cout<<"Key :"<<element<<endl; 
             user ad;
             ifstream ifile;
-            ifile.open("user",ios::in);
+            ifile.open("user.bin",ios::in|ios::binary);
             while(ifile.read((char*)&ad,sizeof(ad)))
             {
                 if(strcmp(ad.get_user_id(),element)==0)
@@ -68,7 +71,7 @@ class user_database
             cout<<"Key : "<<Name<<endl;
             user ad;
             ifstream ifile;
-            ifile.open("user",ios::in);
+            ifile.open("user.bin",ios::in|ios::binary);
             while(ifile.read((char*)&ad,sizeof(ad)))
             {
                 if(strcmp(ad.get_name(),Name)==0)
@@ -80,20 +83,86 @@ class user_database
             return searchRes;
             
         }
-        bool login(char* uname, char* pass)
+        vector<user> login(char* uname, char* pass)
         {
             cout<<uname<<" "<<pass<<endl;
             user ad;
             ifstream ifile;
-            ifile.open("user",ios::in);
+            vector<user> login_det;
+            ifile.open("user.bin",ios::in|ios::binary);
             while(ifile.read((char*)&ad,sizeof(ad)))
             {
                 if((strcmp(ad.get_username(),uname)==0) && (strcmp(ad.get_password(),pass)==0))
                 {
-                    return true;
+                    login_det.push_back(ad);
+                    break;
                 }
             }
             ifile.close();
-            return false;
+            return login_det;
+        }
+        bool create_user(char *userid)
+        {
+            bool check=true;
+            char path[]="userfolder/";
+            strcat(userid,".bin");
+            strcat(path,userid);
+            ofstream ofile(path, ios::out|ios::app|ios::binary);
+            if(!ofile){cout<<"error"<<endl; check=false;}
+            ofile.close();
+            return check;
+        }
+        bool user_delete(char *userid)
+        {
+            user b;
+            int found=0;
+            char choice;
+            ofstream ofile("temp.bin",ios::out|ios::app|ios::binary);
+            ifstream ifile("user.bin",ios::in|ios::binary);
+            if(!ifile){cout<<"Error"<<endl; return false;}
+            while(ifile.read((char*)&b,sizeof(b)))
+            {
+                if(strcmp(b.get_user_id(),userid)==0)
+                {
+                    b.display();
+                    found=1;
+                    cout<<"Do you want to delete ? (y/n) : ";
+                    cin>>choice;
+                    if(choice=='n'||choice=='N')
+                    {
+                        ofile.write((char*)&b,sizeof(b));
+                    }
+                }
+                else
+                {
+                    ofile.write((char*)&b,sizeof(b));
+                }
+            }
+            ifile.close();
+            ofile.close();
+            remove("user.bin");
+            rename("temp.bin","user.bin"); 
+            ifile.open("user.bin",ios::in|ios::binary);
+            if(!ifile){cout<<"Database got Corrupted !!"; return false;}
+            ifile.close();
+            if(found==0)
+            {
+                cout<<"Record not Found !! ";
+                return false;
+            }
+            if(choice=='y'||choice=='Y')
+            {
+                cout<<"Deleted succefully"<<endl;
+            }
+            else
+            {
+                cout<<"Delete Aborted!!!"<<endl;
+            }
+            char path[]="userfolder/"; 
+            strcat(userid,".bin");
+            strcat(path,userid);
+            //cout<<path<<endl;
+            remove(path);
+            return true;
         }
 };

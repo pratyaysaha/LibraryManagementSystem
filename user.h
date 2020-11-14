@@ -22,8 +22,9 @@ class user
             cout<<"Phone Number : ";
             cin>>phone;
             cout<<"Username : ";
-            cin>>username;
-            cout<<"password : ";
+            cin.ignore();
+            cin.getline(username,100);
+            cout<<"Password : ";
             cin.getline(password,100);
         }
         void display()
@@ -42,9 +43,3 @@ class user
         char* get_name(){return name;}
         long get_phone(){return phone;}
 };
-int main()
-{
-    user u1;
-    u1.new_user();
-    u1.display();
-}

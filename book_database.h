@@ -11,7 +11,7 @@ class book_database
     public:
         bool upload(book &b)    
         {
-            ofstream ofile("book",ios::out|ios::app);
+            ofstream ofile("book.bin",ios::out|ios::app|ios::binary);
             if(!ofile){cout<<"Error"<<endl; return false;}
             ofile.write((char*)&b, sizeof(b));
             ofile.close();
@@ -34,7 +34,7 @@ class book_database
         {
             vector<book> all_data;
             book b;
-            ifstream ifile("book",ios::in);
+            ifstream ifile("book.bin",ios::in|ios::binary);
             if(!ifile){cout<<"Error"<<endl; return all_data;}
             while(ifile.read((char*)&b,sizeof(b)))
             {
@@ -66,7 +66,7 @@ class book_database
         {
             vector<book> all_data;
             book b;
-            ifstream ifile("book",ios::in);
+            ifstream ifile("book.bin",ios::in|ios::binary);
             if(!ifile){cout<<"Error"<<endl; return all_data;}
             while(ifile.read((char*)&b,sizeof(b)))
             {
@@ -84,7 +84,7 @@ class book_database
         {
             vector<book> all_data;
             book b;
-            ifstream ifile("book",ios::in);
+            ifstream ifile("book.bin",ios::in|ios::binary);
             if(!ifile){cout<<"Error"<<endl; return all_data;}
             while(ifile.read((char*)&b,sizeof(b)))
             {
@@ -102,7 +102,7 @@ class book_database
         {
             vector<book> all_data;
             book b;
-            ifstream ifile("book",ios::in);
+            ifstream ifile("book.bin",ios::in|ios::binary);
             if(!ifile){cout<<"Error"<<endl; return all_data;}
             while(ifile.read((char*)&b,sizeof(b)))
             {
@@ -120,7 +120,7 @@ class book_database
         {
             vector<book> all_data;
             book b;
-            ifstream ifile("book",ios::in);
+            ifstream ifile("book.bin",ios::in|ios::binary);
             if(!ifile){cout<<"Error"<<endl; return all_data;}
             while(ifile.read((char*)&b,sizeof(b)))
             {
@@ -138,7 +138,7 @@ class book_database
         {
             vector<book> all_data;
             book b;
-            ifstream ifile("book",ios::in);
+            ifstream ifile("book.bin",ios::in|ios::binary);
             if(!ifile){cout<<"Error"<<endl; return all_data;}
             while(ifile.read((char*)&b,sizeof(b)))
             {
@@ -157,8 +157,8 @@ class book_database
             book b;
             int found=0;
             char choice;
-            ofstream ofile("temp",ios::out|ios::app);
-            ifstream ifile("book",ios::in);
+            ofstream ofile("temp.bin",ios::out|ios::app|ios::binary);
+            ifstream ifile("book.bin",ios::in|ios::binary);
             if(!ifile){cout<<"Error"<<endl; return false;}
             while(ifile.read((char*)&b,sizeof(b)))
             {
@@ -181,9 +181,9 @@ class book_database
             ifile.close();
             ofile.close();
 
-            remove("book");
-            rename("temp","book");
-            ifile.open("book",ios::in);
+            remove("book.bin");
+            rename("temp.bin","book.bin");
+            ifile.open("book.bin",ios::in|ios::binary);
             if(!ifile){cout<<"Database got Corrupted !!"; return false;}
             ifile.close();
             if(found==0)
@@ -277,7 +277,7 @@ class book_database
             bool res= true;
             int pos;
             int found=0;
-            ifile.open("book",ios::in|ios::out);
+            ifile.open("book.bin",ios::in|ios::out|ios::binary);
             if(!ifile){cout<<"Error"<<endl;log("modify error");return false;}
             while(!ifile.eof())
             {

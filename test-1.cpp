@@ -6,8 +6,6 @@ using namespace std;
 
 int main()
 {
-     book b;
-     book_database db;
      /* b.new_book();
      db.upload(b); */ 
     /*   for(int i=0;i<5;i++)
@@ -23,9 +21,13 @@ int main()
      */
     // db.deleteRecord(1);
     //db.upload(2);
-     admin_menu ad;
-     ad.menu(); 
+    admin_menu ad;
+    ad.menu();  
     //
-
+        
+   // idb.upload(2);
+  
+    //vector<issue> info=idb.download();
+   // idb.extract(info);
 
 }
